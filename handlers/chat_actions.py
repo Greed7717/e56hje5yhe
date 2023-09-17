@@ -12,23 +12,23 @@ async def echo_ban(message: types.Message):
     if message.chat.id == GROUP_ID:
         for word in ban_words:
             if word in message.text.lower().replace(" ", ''):
-                ban_user = Database().sql_select_ban_user_command(
-                    telegram_id=message.from_user.id
-                )
-                if ban_user[0]['count'] >= 3:
-                    await bot.send_message(
-                        chat_id=message.from_user.id,
-                        text=message.text
-                    )
-                elif ban_user:
-                    print(ban_user)
-                    Database().sql_update_ban_user_count_command(
-                        telegram_id=message.from_user.id
-                    )
-                else:
-                    Database().sql_insert_ban_user_command(
-                        telegram_id=message.from_user.id
-                    )
+                # ban_user = Database().sql_select_ban_user_command(
+                #     telegram_id=message.from_user.id
+                # )
+                # if ban_user[0]['count'] >= 3:
+                #     await bot.send_message(
+                #         chat_id=message.from_user.id,
+                #         text=message.text
+                #     )
+                # elif ban_user:
+                #     print(ban_user)
+                #     Database().sql_update_ban_user_count_command(
+                #         telegram_id=message.from_user.id
+                #     )
+                # else:
+                #     Database().sql_insert_ban_user_command(
+                #         telegram_id=message.from_user.id
+                #     )
                 await bot.delete_message(
                     chat_id=message.chat.id,
                     message_id=message.message_id
