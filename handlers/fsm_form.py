@@ -6,6 +6,7 @@ from config import bot, DESTINATION_DIR
 from database.sql_commands import Database
 from keyboards.inline_buttons import my_profile_keyboard
 
+
 class FormStates(StatesGroup):
     nickname = State()
     bio = State()

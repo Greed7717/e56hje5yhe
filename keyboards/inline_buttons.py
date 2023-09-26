@@ -51,3 +51,15 @@ async def my_profile_keyboard():
         profile_button
     )
     return markup
+
+
+async def two_button_inline_markup(text: list, callback: list):
+    if len(text) == 2 and len(callback) == 2:
+        button1 = InlineKeyboardButton(text[0], callback_data=callback[0])
+        button2 = InlineKeyboardButton(text[1], callback_data=callback[1])
+        markup = InlineKeyboardMarkup()
+
+        markup.add(
+            button1, button2
+        )
+        return markup
