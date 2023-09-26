@@ -1,10 +1,14 @@
+import asyncio
 import sqlite3
 from database import sql_queries
+from sqlite3 import Error
 
 class Database:
     def __init__(self):
         self.connection = sqlite3.connect('db.sqlite3')
         self.cursor = self.connection.cursor()
+
+        self.loop = asyncio.get_running_loop()
 
     def sql_create_tables(self):
         if self.connection:
@@ -33,6 +37,33 @@ class Database:
             (telegram_id,)
         ).fetchall()
 
+    def select_username(self, username):
+        result = []
+        query = f"""SELECT * FROM users WHERE username='{username}';"""
+
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+        except Error as e:
+            print(e)
+            return result
+
+    async def async_select_username(self, username):
+        return await self.loop.run_in_executor(None, self.select_username, username)
+
+    def select_first_name(self, first_name):
+        result = []
+        query = f"""SELECT * FROM users WHERE first_name='{first_name}';"""
+
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
+        except Error as e:
+            print(e)
+            return result
+
+    async def async_select_first_name(self, first_name):
+        return await self.loop.run_in_executor(None, self.select_first_name, first_name)
 
     def sql_update_ban_user_count_command(self, telegram_id):
         self.cursor.execute(
