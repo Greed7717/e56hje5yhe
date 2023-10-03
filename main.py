@@ -13,7 +13,7 @@ async def onstart_up(_):
 start.register_start_handlers(dp=dp)
 fsm_form.register_fsm_form_handlers(dp=dp)
 # report.register_report_handler(dp=dp)
-my_scraper.register_scraper(dp=dp)
+# my_scraper.register_scraper(dp=dp)
 # asyn_scraper.register_scraper(dp=dp)
 chat_actions.register_chat_actions_handlers(dp=dp)
 

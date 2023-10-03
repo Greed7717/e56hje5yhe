@@ -67,48 +67,49 @@ class AsyncLimonScraper:
 
  # async def get_data(message: types.Message):
  #    limon_scraper = AsyncLimonScraper()
- #    urls = []
- #    urls_list = await limon_scraper.pars_limon_data()
- #    for url in urls_list:
- #        urls.extend(url)
- #    for i in range(1, 5):
- #        await bot.send_message(chat_id=message.chat.id, text=urls[i])
-async def get_data(message: types.Message):
-    limon_scraper = AsyncLimonScraper()
-    urls = await limon_scraper.pars_limon_data()
-    for url in urls:
-        await bot.send_message(chat_id=message.chat.id, text=url)
-
-
-
-def register_scraper(dp: Dispatcher):
-    dp.register_message_handler(get_data, commands=["limon_news"])
-
-
-if __name__ == "main":
-    scraper = AsyncLimonScraper()
-    asyncio.run(scraper.pars_limon_data())
-    async def pars_limon_data(self):
-        timeout = httpx.Timeout(10.0)
-        async with httpx.AsyncClient(headers=limon_headers, timeout=timeout) as client:
-            articles = []
-            for page in range(1, 5):
-                url = self.START_URL.format(page)  # Вставляем значение page в URL
-                print(url)
-                articles.append(asyncio.create_task(self.get_limon_url(client, url)),
-            new_gather = await asyncio.gather(*articles),
-            await client.aclose())
-                return self.urls
-
+#  #    urls = []
+#  #    urls_list = await limon_scraper.pars_limon_data()
+#  #    for url in urls_list:
+#  #        urls.extend(url)
+#  #    for i in range(1, 5):
+#  #        await bot.send_message(chat_id=message.chat.id, text=urls[i])
 # async def get_data(message: types.Message):
 #     limon_scraper = AsyncLimonScraper()
-#     urls = await limon_scraper.pars_limon_data()
+#     content = await limon_scraper.pars_limon_data()
+#     urls = await limon_scraper.parsel_limon_links(content)
 #     for url in urls:
 #         await bot.send_message(chat_id=message.chat.id, text=url)
+#
+#
 #
 # def register_scraper(dp: Dispatcher):
 #     dp.register_message_handler(get_data, commands=["limon_news"])
 #
-# if name == "main":
+#
+# if __name__ == "main":
 #     scraper = AsyncLimonScraper()
 #     asyncio.run(scraper.pars_limon_data())
+#     async def pars_limon_data(self):
+#         timeout = httpx.Timeout(10.0)
+#         async with httpx.AsyncClient(headers=limon_headers, timeout=timeout) as client:
+#             articles = []
+#             for page in range(1, 5):
+#                 url = self.START_URL.format(page)  # Вставляем значение page в URL
+#                 print(url)
+#                 articles.append(asyncio.create_task(self.get_limon_url(client, url))),
+#             new_gather = await asyncio.gather(*articles),
+#             await client.aclose()
+#         return self.urls
+#
+# # async def get_data(message: types.Message):
+# #     limon_scraper = AsyncLimonScraper()
+# #     urls = await limon_scraper.pars_limon_data()
+# #     for url in urls:
+# #         await bot.send_message(chat_id=message.chat.id, text=url)
+# #
+# # def register_scraper(dp: Dispatcher):
+# #     dp.register_message_handler(get_data, commands=["limon_news"])
+# #
+# # if name == "main":
+# #     scraper = AsyncLimonScraper()
+# #     asyncio.run(scraper.pars_limon_data())

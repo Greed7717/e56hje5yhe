@@ -15,6 +15,7 @@ class FormStates(StatesGroup):
     married = State()
     photo = State()
 
+
 async def fsm_start(call: types.CallbackQuery):
     user = Database().sql_select_user_form_command(
         telegram_id=call.from_user.id
@@ -33,8 +34,8 @@ async def fsm_start(call: types.CallbackQuery):
         )
         await FormStates.nickname.set()
 
-async def load_nickname(message: types.Message,
-                        state: FSMContext):
+
+async def load_nickname(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["nickname"] = message.text
         print(data)
@@ -42,6 +43,7 @@ async def load_nickname(message: types.Message,
     await message.reply(
         "Send me your bio, please"
     )
+
 
 async def load_bio(message: types.Message,
                    state: FSMContext):
@@ -56,24 +58,19 @@ async def load_bio(message: types.Message,
 
 async def load_age(message: types.Message,
                    state: FSMContext):
-    try:
-        if type(int(message.text)) != int:
-            await message.reply(
-                text="I said use numeric one, register again"
-            )
-            await state.finish()
-        else:
-            async with state.proxy() as data:
-                data["age"] = message.text
-                print(data)
-            await FormStates.next()
-            await message.reply(
-                "Send me your occupation, please"
-            )
-    except ValueError as e:
-        await state.finish()
+
+    if message.text.isdigit():
         await message.reply(
             text="I said use numeric one, register again"
+        )
+        await state.finish()
+    else:
+        async with state.proxy() as data:
+            data["age"] = message.text
+            print(data)
+        await FormStates.next()
+        await message.reply(
+            "Send me your occupation, please"
         )
 
 
